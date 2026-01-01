@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guransh Madharch0d - Happy New Year!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: #000;
+            overflow-x: hidden;
+            color: white;
+        }
+        
+        /* Video Background */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        
+        #bg-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.3);
+        }
+        
+        /* Page Styles */
+        .page {
+            min-height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page.active {
+            display: flex;
+            animation: pageSlide 1s ease;
+        }
+        
+        @keyframes pageSlide {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Navigation */
+        .nav-dots {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+        
+        .dot {
+            width: 15px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .dot.active {
+            background: #ff0000;
+            transform: scale(1.3);
+            border-color: white;
+            box-shadow: 0 0 10px #ff0000;
+        }
+        
+        /* Page 1 - Landing */
+        .main-title {
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: titleGlow 2s infinite alternate;
+            text-shadow: 0 0 30px #ff0000;
+        }
+        
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; }
+            to { text-shadow: 0 0 30px #ff00ff, 0 0 40px #ff00ff; }
+        }
+        
+        .subtitle {
+            font-size: 2.5rem;
+            color: #ff9900;
+            margin-bottom: 40px;
+            animation: bounce 2s infinite;
+        }
+        
+        .start-btn {
+            background: linear-gradient(45deg, #ff0000, #ff9900);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            transition: all 0.3s;
+        }
+        
+        .start-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Page 2 - Introduction */
+        .character-img {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, #ff0000, #ff9900);
+            border-radius: 50%;
+            margin: 30px;
+            animation: rotate 10s infinite linear;
+            position: relative;
+            overflow: hidden;
+            border: 10px solid white;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.7);
+        }
+        
+        .character-img::before {
+            content: "😂";
+            font-size: 8rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .stats {
+            background: rgba(255, 0, 0, 0.2);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 20px;
+            border: 3px dashed #ff9900;
+        }
+        
+        .stat-item {
+            font-size: 1.8rem;
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .stat-value {
+            color: #ff9900;
+            font-weight: bold;
+            font-size: 2.2rem;
+        }
+        
+        /* Page 3 - Special Messages */
+        .message-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px;
+            max-width: 800px;
+            border: 3px solid #ff0000;
+            animation: shakeCard 3s infinite;
+        }
+        
+        @keyframes shakeCard {
+            0%, 100% { transform: rotate(-1deg); }
+            50% { transform: rotate(1deg); }
+        }
+        
+        .message-text {
+            font-size: 2rem;
+            line-height: 1.6;
+            color: #ffcc00;
+            text-align: center;
+        }
+        
+        /* Page 4 - Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px;
+        }
+        
+        .gallery-item {
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.1);
+            border-color: #ff0000;
+            box-shadow: 0 0 30px #ff0000;
+            z-index: 10;
+        }
+        
+        .gallery-label {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: #ff9900;
+        }
+        
+        /* Page 5 - New Year Wish */
+        .fireworks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: fireworkExplode 1.5s ease-out forwards;
+        }
+        
+        @keyframes fireworkExplode {
+            0% {
+                transform: translate(var(--x), 100vh) scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translate(var(--x), var(--y)) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        .new-year-message {
+            background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 4rem;
+            text-align: center;
+            margin: 30px;
+            animation: colorShift 3s infinite alternate;
+        }
+        
+        @keyframes colorShift {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title { font-size: 3rem; }
+            .subtitle { font-size: 1.8rem; }
+            .new-year-message { font-size: 2.5rem; }
+            .character-img { width: 200px; height: 200px; }
+            .message-text { font-size: 1.5rem; }
+            .gallery { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title { font-size: 2.2rem; }
+            .gallery { grid-template-columns: 1fr; }
+            .nav-dots { right: 10px; }
+        }
+        
+        /* Audio Controls */
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .audio-btn {
+            background: #ff0000;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff9900);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        /* Page Indicators */
+        .page-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-bg">
+        <video id="bg-video" autoplay loop muted playsinline>
+            <source src="https://www.youtube.com/embed/xkPK8bKAudY?autoplay=1&mute=0&loop=1&playlist=xkPK8bKAudY&controls=0" type="video/mp4">
+        </video>
+    </div>
+    
+    <!-- Audio for Video -->
+    <audio id="video-audio" autoplay loop>
+        <source src="https://www.youtube.com/embed/xkPK8bKAudY?autoplay=1" type="audio/mpeg">
+    </audio>
+    
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    
+    <!-- Navigation Dots -->
+    <div class="nav-dots" id="nav-dots"></div>
+    
+    <!-- Page 1: Landing -->
+    <div class="page active" id="page1">
+        <h1 class="main-title" id="main-name">GURANSH MADHARCH0D</h1>
+        <div class="subtitle">Aayein? Kaise ho aap log?</div>
+        <button class="start-btn" onclick="nextPage()">Shuru Karein! 🚀</button>
+        <div class="page-number">Page 1/5</div>
+    </div>
+    
+    <!-- Page 2: Introduction -->
+    <div class="page" id="page2">
+        <h2 class="subtitle">Ye Hai Hamara Hero!</h2>
+        <div class="character-img"></div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <span>Naam:</span>
+                <span class="stat-value" id="dynamic-name">Guransh Madharch0d</span>
+            </div>
+            <div class="stat-item">
+                <span>Speciality:</span>
+                <span class="stat-value">Khana + Sona</span>
+            </div>
+            <div class="stat-item">
+                <span>Weight:</span>
+                <span class="stat-value">2 Quintal 😂</span>
+            </div>
+            <div class="stat-item">
+                <span>2024 Goal:</span>
+                <span class="stat-value">Gym Jaana</span>
+            </div>
+        </div>
+        
+        <button class="start-btn" onclick="nextPage()">Aage Chalein! 👉</button>
+        <div class="page-number">Page 2/5</div>
+    </div>
+    
+    <!-- Page 3: Special Messages -->
+    <div class="page" id="page3">
+        <h2 class="subtitle">Kuch Special Baatein! 🤣</h2>
+        
+        <div class="message-card">
+            <div class="message-text">
+                "Abe Oye Mote Gandu!<br>
+                Tera weight dekhe bina bhi pata chal jata hai ki tu aaya hai!<br>
+                Teri awaz se pehle tera pet ata hai! 😂<br><br>
+                Par phir bhi tu hamara sabse best dost hai!"
+            </div>
+        </div>
+        
+        <div class="message-card">
+            <div class="message-text">
+                "Tere liye tailor ne alag se measurement liye hain!<br>
+                Tera t-shirt bhi bedsheet ki tarah banta hai!<br><br>
+                Naye saal mein thoda kam kha lena! 🍕➡️🥗"
+            </div>
+        </div>
+        
+        <button class="start-btn" onclick="nextPage()">Aur Suno! 😜</button>
+        <div class="page-number">Page 3/5</div>
+    </div>
+    
+    <!-- Page 4: Gallery -->
+    <div class="page" id="page4">
+        <h2 class="subtitle">Guransh ki Gallery! 📸</h2>
+        
+        <div class="gallery">
+            <div class="gallery-item" onclick="playSound('laugh1')">
+                <div>😂</div>
+                <div class="gallery-label">Hasna</div>
+            </div>
+            <div class="gallery-item" onclick="playSound('laugh2')">
+                <div>🍕</div>
+                <div class="gallery-label">Khana</div>
+            </div>
+            <div class="gallery-item" onclick="playSound('snore')">
+                <div>😴</div>
+                <div class="gallery-label">Sona</div>
+            </div>
+            <div class="gallery-item" onclick="playSound('gym')">
+                <div>💪</div>
+                <div class="gallery-label">Gym (Kal Se)</div>
+            </div>
+            <div class="gallery-item" onclick="playSound('laugh3')">
+                <div>🤣</div>
+                <div class="gallery-label">Masti</div>
+            </div>
+            <div class="gallery-item" onclick="playSound('burp')">
+                <div>😝</div>
+                <div class="gallery-label">After Food</div>
+            </div>
+        </div>
+        
+        <button class="start-btn" onclick="nextPage()">Last Page! 🎉</button>
+        <div class="page-number">Page 4/5</div>
+    </div>
+    
+    <!-- Page 5: New Year Wish -->
+    <div class="page" id="page5">
+        <div class="fireworks" id="fireworks"></div>
+        
+        <h1 class="main-title">🎊 HAPPY NEW YEAR! 🎊</h1>
+        
+        <div class="new-year-message">
+            Guransh Madharch0d<br>
+            Tujhe aur tere parivaar ko<br>
+            2024 ki hardik shubhkamnayein! 🎆
+        </div>
+        
+        <div class="message-card">
+            <div class="message-text">
+                Bhai, ye saal tujhe bohot kuch de!<br>
+                Paisa, khushiyaan, aur thoda kam weight! 😂<br><br>
+                Tu hamara sabse special dost hai!<br>
+                Love you yaar! ❤️
+            </div>
+        </div>
+        
+        <button class="start-btn" onclick="goToPage(1)">Phir Se Dekhein! 🔄</button>
+        <div class="page-number">Page 5/5</div>
+    </div>
+    
+    <!-- Audio Controls -->
+    <div class="audio-controls">
+        <button class="audio-btn" onclick="toggleAudio()" id="audio-toggle">🔊 On</button>
+        <button class="audio-btn" onclick="playLaugh()">😂 Hasao</button>
+        <button class="audio-btn" onclick="playRoast()">🎤 Roast Suno</button>
+    </div>
+
+    <script>
+        // Sound Effects
+        const sounds = {
+            laugh1: 'https://assets.mixkit.co/sfx/preview/mixkit-cartoon-toy-whistle-911.mp3',
+            laugh2: 'https://assets.mixkit.co/sfx/preview/mixkit-crazy-laugh-559.mp3',
+            laugh3: 'https://assets.mixkit.co/sfx/preview/mixkit-funny-cartish-laugh-346.mp3',
+            snore: 'https://assets.mixkit.co/sfx/preview/mixkit-sleeping-snore-1216.mp3',
+            gym: 'https://assets.mixkit.co/sfx/preview/mixkit-gym-applause-505.mp3',
+            burp: 'https://assets.mixkit.co/sfx/preview/mixkit-big-burp-1166.mp3',
+            roast: 'https://assets.mixkit.co/sfx/preview/mixkit-crowd-laugh-464.mp3'
+        };
+        
+        // Website State
+        let currentPage = 1;
+        const totalPages = 5;
+        let isAudioEnabled = true;
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createNavigationDots();
+            updateProgressBar();
+            startFireworks();
+            playVideoWithSound();
+            
+            // Auto-rotate name text
+            setInterval(() => {
+                const name = document.getElementById('main-name');
+                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                name.style.color = randomColor;
+            }, 1000);
+        });
+        
+        // Navigation Functions
+        function createNavigationDots() {
+            const navContainer = document.getElementById('nav-dots');
+            for (let i = 1; i <= totalPages; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot' + (i === 1 ? ' active' : '');
+                dot.onclick = () => goToPage(i);
+                navContainer.appendChild(dot);
+            }
+        }
+        
+        function goToPage(pageNum) {
+            // Hide current page
+            document.querySelector('.page.active').classList.remove('active');
+            document.querySelectorAll('.dot')[currentPage - 1].classList.remove('active');
+            
+            // Show new page
+            currentPage = pageNum;
+            document.getElementById(`page${pageNum}`).classList.add('active');
+            document.querySelectorAll('.dot')[pageNum - 1].classList.add('active');
+            
+            // Update progress
+            updateProgressBar();
+            
+            // Play page-specific effects
+            if (pageNum === 5) {
+                startFireworks();
+                playSound('laugh1');
+            } else if (pageNum === 3) {
+                playSound('roast');
+            }
+        }
+        
+        function nextPage() {
+            if (currentPage < totalPages) {
+                goToPage(currentPage + 1);
+            } else {
+                goToPage(1);
+            }
+        }
+        
+        function updateProgressBar() {
+            const progress = (currentPage / totalPages) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+        
+        // Audio Functions
+        function playSound(soundName) {
+            if (!isAudioEnabled) return;
+            
+            const audio = new Audio(sounds[soundName] || sounds.laugh1);
+            audio.volume = 0.7;
+            audio.play().catch(e => console.log("Audio play failed:", e));
+        }
+        
+        function toggleAudio() {
+            isAudioEnabled = !isAudioEnabled;
+            const toggleBtn = document.getElementById('audio-toggle');
+            toggleBtn.textContent = isAudioEnabled ? '🔊 On' : '🔇 Off';
+            
+            const videoAudio = document.getElementById('video-audio');
+            if (videoAudio) {
+                videoAudio.muted = !isAudioEnabled;
+            }
+        }
+        
+        function playLaugh() {
+            const laughs = ['laugh1', 'laugh2', 'laugh3'];
+            const randomLaugh = laughs[Math.floor(Math.random() * laughs.length)];
+            playSound(randomLaugh);
+        }
+        
+        function playRoast() {
+            playSound('roast');
+        }
+        
+        // Video Functions
+        function playVideoWithSound() {
+            const video = document.getElementById('bg-video');
+            const audio = document.getElementById('video-audio');
+            
+            if (video && audio) {
+                    // Try to play video with sound
+                video.muted = false;
+                video.play().catch(e => {
+                    console.log("Video autoplay failed, trying muted:", e);
+                    video.muted = true;
+                    video.play();
+                });
+                
+                // Sync audio with video
+                audio.volume = 0.3;
+                audio.play().catch(e => console.log("Audio sync failed:", e));
+            }
+        }
+        
+        // Fireworks Effect
+        function startFireworks() {
+            const container = document.getElementById('fireworks');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createFirework();
+                }, i * 100);
+            }
+        }
+        
+        function createFirework() {
+            const container = document.getElementById('fireworks');
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight * 0.7;
+            
+            firework.style.setProperty('--x', `${x}px`);
+            firework.style.setProperty('--y', `${y}px`);
+            
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+            firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            firework.style.boxShadow = `0 0 20px ${firework.style.backgroundColor}`;
+            
+            container.appendChild(firework);
+            
+            setTimeout(() => {
+                firework.remove();
+            }, 1500);
+        }
+        
+        // Keyboard Navigation
+        document.addEventListener('keydown', function(e) {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    nextPage();
+                    break;
+                case 'ArrowLeft':
+                    if (currentPage > 1) goToPage(currentPage - 1);
+                    break;
+                case '1': case '2': case '3': case '4': case '5':
+                    goToPage(parseInt(e.key));
+                    break;
+                case 'a':
+                    toggleAudio();
+                    break;
+                case 'l':
+                    playLaugh();
+                    break;
+                case 'r':
+                    playRoast();
+                    break;
+            }
+        });
+        
+        // Auto page rotation for demo
+        setInterval(() => {
+            if (document.hasFocus()) {
+                nextPage();
+            }
+        }, 10000); // Change page every 10 seconds
+        
+        // Dynamic name effect
+        const nameVariations = [
+            "GURANSH MADHARCH0D",
+            "GURANSH MOTE GANDU",
+            "GURANSH THE GREAT",
+            "GURANSH KHANA SPECIALIST",
+            "GURANSH GYM BHAI"
+        ];
+        
+        let nameIndex = 0;
+        setInterval(() => {
+            nameIndex = (nameIndex + 1) % nameVariations.length;
+            document.getElementById('dynamic-name').textContent = nameVariations[nameIndex];
+            
+            // Also update main title sometimes
+            if (Math.random() > 0.7) {
+                document.getElementById('main-name').textContent = nameVariations[nameIndex];
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
